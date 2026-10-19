@@ -447,7 +447,7 @@ body > .floating-symbols { position:relative; z-index:2; }
   </div>
   <div class="visual">
     <div class="video-card" id="videoCard">
-      <video class="academy-intro-video" autoplay muted loop playsinline preload="auto" aria-label="الفيديو التعريفي بالأكاديمية">
+      <video class="academy-intro-video" loop playsinline preload="metadata" aria-label="الفيديو التعريفي بالأكاديمية" poster="">
         <source src="./intro-video.mp4" type="video/mp4">
         المتصفح لا يدعم تشغيل الفيديو.
       </video>
@@ -912,9 +912,16 @@ if (leadForm) {
 <script>
 window.addEventListener('load', function () {
   document.querySelectorAll('video').forEach(function (video) {
+    video.playsInline = true;
+    /* Keep the intro video paused until the visitor presses the large play button. */
+    if (video.classList.contains('academy-intro-video')) {
+      video.pause();
+      video.muted = false;
+      video.autoplay = false;
+      return;
+    }
     video.muted = true;
     video.autoplay = true;
-    video.playsInline = true;
     var attempt = video.play();
     if (attempt && typeof attempt.catch === 'function') attempt.catch(function () {});
   });
@@ -928,13 +935,14 @@ window.addEventListener('load', function () {
  const card=document.getElementById('videoCard');
  if(!video||!button||!card)return;
  button.addEventListener('click',function(){
+   button.disabled=true;
    video.muted=false;
    video.volume=1;
    video.loop=true;
    const playPromise=video.play();
    if(playPromise&&typeof playPromise.then==='function'){
      playPromise.then(function(){card.classList.add('intro-sound-enabled');})
-       .catch(function(){video.muted=true;});
+       .catch(function(){button.disabled=false; video.pause(); video.muted=false;});
    }else{card.classList.add('intro-sound-enabled');}
  });
  video.addEventListener('pause',function(){card.classList.remove('intro-sound-enabled');});
