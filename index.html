@@ -428,7 +428,7 @@ body > .floating-symbols { position:relative; z-index:2; }
   </div>
   <div class="visual">
     <div class="video-card" id="videoCard">
-      <video class="academy-intro-video" loop playsinline controls preload="metadata" aria-label="الفيديو التعريفي بالأكاديمية" muted="false">
+      <video class="academy-intro-video" autoplay loop playsinline controls preload="auto" aria-label="الفيديو التعريفي بالأكاديمية">
         <source src="./intro-video.mp4" type="video/mp4">
         المتصفح لا يدعم تشغيل الفيديو.
       </video>
@@ -895,13 +895,27 @@ if (leadForm) {
 
 <script>
 (() => {
-  const video = document.querySelector('.academy-intro-video');
-  if (!video) return;
-  // Start only when the visitor presses Play: browsers block audible autoplay.
-  video.muted = false;
-  video.volume = 1;
-  video.autoplay = false;
-  video.addEventListener('play', () => { video.muted = false; video.volume = 1; });
+  const startVideo = () => {
+    const video = document.querySelector('.academy-intro-video');
+    if (!video) return;
+    video.autoplay = true;
+    video.muted = false;
+    video.defaultMuted = false;
+    video.volume = 1;
+    // Attempt immediate autoplay with sound. The browser may block audible autoplay
+    // unless the visitor has allowed it in browser settings or previously interacted.
+    const attempt = video.play();
+    if (attempt && typeof attempt.catch === 'function') {
+      attempt.catch(() => {
+        // Leave controls available so playback can be started manually if blocked.
+      });
+    }
+  };
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', startVideo, { once: true });
+  } else {
+    startVideo();
+  }
 })();
 </script>
 </body>
