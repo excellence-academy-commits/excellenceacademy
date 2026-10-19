@@ -428,7 +428,7 @@ body > .floating-symbols { position:relative; z-index:2; }
   </div>
   <div class="visual">
     <div class="video-card" id="videoCard">
-      <video class="academy-intro-video" autoplay muted loop playsinline controls preload="metadata" aria-label="الفيديو التعريفي بالأكاديمية">
+      <video class="academy-intro-video" autoplay loop playsinline controls preload="metadata" aria-label="الفيديو التعريفي بالأكاديمية">
         <source src="./intro-video.mp4" type="video/mp4">
         المتصفح لا يدعم تشغيل الفيديو.
       </video>
@@ -892,6 +892,19 @@ if (leadForm) {
 })();
 </script>
 
+
+<script>
+(() => {
+  const video = document.querySelector('.academy-intro-video');
+  if (!video) return;
+  video.muted = false;
+  video.volume = 1;
+  const enableSound = () => { video.muted = false; video.volume = 1; const p = video.play(); if (p && p.catch) p.catch(() => {}); };
+  document.addEventListener('pointerdown', enableSound, { once: true });
+  document.addEventListener('keydown', enableSound, { once: true });
+  const p = video.play(); if (p && p.catch) p.catch(() => {});
+})();
+</script>
 </body>
 
 
