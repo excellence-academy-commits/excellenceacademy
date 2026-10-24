@@ -740,6 +740,9 @@ if (leadForm) {
         notice.style.color = '#205c31';
         notice.textContent = 'تم إرسال معلوماتك. اضغط على زر الانضمام إلى مجموعة WhatsApp لإكمال الخطوة الأخيرة.';
       }
+           if (typeof fbq === 'function') {
+        fbq('track', 'Lead');
+      }
       hideSignup();
       showWhatsAppContact();
     } catch (error) {
