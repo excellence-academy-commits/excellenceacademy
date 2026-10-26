@@ -436,7 +436,7 @@ src="https://www.facebook.com/tr?id=23977642238519893&ev=PageView&noscript=1"
     <p style="font-size:.92rem;margin-top:16px;color:#c7d9f2">ابدأ رحلتك نحو شخصية أكثر ثقة ووضوحًا.</p>
     <div class="confidence-countdown" aria-label="العد التنازلي لموعد الدورة">
       <div class="countdown-heading">⏳ موعد الدورة</div>
-      <p class="countdown-date" dir="rtl">الأربعاء 28 أكتوبر 2026 — الساعة 18:30 بتوقيت الجزائر</p>
+     <p class="countdown-date" dir="rtl">الخميس 29 أكتوبر 2026 — الساعة 18:30 بتوقيت الجزائر</p>
       <div class="countdown-units" dir="ltr">
         <div><strong id="cdDays">00</strong><span>يوم</span></div><div><strong id="cdHours">00</strong><span>ساعة</span></div><div><strong id="cdMinutes">00</strong><span>دقيقة</span></div><div><strong id="cdSeconds">00</strong><span>ثانية</span></div>
       </div>
@@ -773,8 +773,8 @@ if (leadForm) {
 
 
 <script>
-(function(){
- const target = new Date('2026-10-28T18:30:00+01:00').getTime();
+(function(){const target = new Date('2026-10-29T18:30:00+01:00').getTime();
+ 
  const ids = {days:document.getElementById('cdDays'),hours:document.getElementById('cdHours'),minutes:document.getElementById('cdMinutes'),seconds:document.getElementById('cdSeconds')};
  function update(){let diff=Math.max(0,target-Date.now());const vals={days:Math.floor(diff/86400000),hours:Math.floor(diff%86400000/3600000),minutes:Math.floor(diff%3600000/60000),seconds:Math.floor(diff%60000/1000)};Object.keys(ids).forEach(k=>{if(ids[k])ids[k].textContent=String(vals[k]).padStart(2,'0')});if(diff===0){const h=document.querySelector('.countdown-heading');if(h)h.textContent='🎓 حان موعد الدورة المجانية';}}
  update();setInterval(update,1000);
