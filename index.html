@@ -614,7 +614,15 @@ academyInfoModal.addEventListener('click',e=>{if(e.target===academyInfoModal) hi
 
 const signupModal = document.getElementById('signupModal');
 const closeSignup = document.getElementById('closeSignup');
-function openSignup(e){ if(e) e.preventDefault(); signupModal.style.display='flex'; requestAnimationFrame(()=>signupModal.classList.add('open')); signupModal.setAttribute('aria-hidden','false'); document.body.style.overflow='hidden'; setTimeout(()=>document.getElementById('name').focus(),180); }
+function openSignup(e){
+  if(e) e.preventDefault();
+  if(typeof fbq === 'function') fbq('trackCustom', 'ClickRegister');
+  signupModal.style.display='flex';
+  requestAnimationFrame(()=>signupModal.classList.add('open'));
+  signupModal.setAttribute('aria-hidden','false');
+  document.body.style.overflow='hidden';
+  setTimeout(()=>document.getElementById('name').focus(),180);
+}
 function hideSignup(){ signupModal.classList.remove('open'); signupModal.setAttribute('aria-hidden','true'); document.body.style.overflow=''; setTimeout(()=>{if(!signupModal.classList.contains('open')) signupModal.style.display='none';},300); }
 document.querySelectorAll('[data-open-signup]').forEach(el=>el.addEventListener('click',openSignup));
 closeSignup.addEventListener('click',hideSignup);
