@@ -952,6 +952,7 @@ if (leadForm) {
   items.forEach(item=>{const r=item.getBoundingClientRect();if(r.top<vh*.72&&r.bottom>vh*.18)item.classList.add('four-step-reached');});
  }
  window.addEventListener('scroll',update,{passive:true});window.addEventListener('resize',update);update();
+ console.log('Countdown started:', target, Date.now());
 })();
 </script>
 
